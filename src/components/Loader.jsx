@@ -6,11 +6,10 @@ const Loader = () => {
   return (
     <Html>
     <span className="canvas-load"></span>
-    <div className='w-screen h-screen bg-white'></div>
     <p
     style={{
-      fontSize: 30,
-      color: 'white',
+      fontSize: 20,
+      color: 'cyan',
       fontWeight: 800,
       marginTop: 40
 
