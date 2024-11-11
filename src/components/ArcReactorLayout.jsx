@@ -7,6 +7,7 @@ import WaveformComponent from './models/Waveform';
 import ArcReactorSmall from './models/ArcReactorSmall';
 import { motion } from 'framer-motion';
 import CentralCore from './CentralCore';
+import ReactorScene from './models/ArcReactor';
 
 // Main Arc Reactor Interface Component
 const ArcReactorUI = ({ onSwitchLayout, messageIndex, setMessageIndex }) => {
@@ -19,7 +20,7 @@ const ArcReactorUI = ({ onSwitchLayout, messageIndex, setMessageIndex }) => {
             <h4 className="glow border border-white text-white bg-cyan-800 inline-block p-2 mr-4 text-2xl">Arc Reactor</h4>
             <CommandPrompt />
             </div>
-            <ReactorModel />
+            <ReactorScene />
             </div>
             <RightPanel />
             
