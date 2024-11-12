@@ -2,21 +2,14 @@ import { Html, useProgress } from '@react-three/drei';
 
 
 const Loader = () => {
-  const {progress} = useProgress();
   return (
+    
     <Html>
     <span className="canvas-load"></span>
-    <p
-    style={{
-      fontSize: 20,
-      color: 'cyan',
-      fontWeight: 800,
-      marginTop: 40
-
-    }}
-    >{progress.toFixed(2)}$</p>
-
+    <div className='w-20 h-20 rounded-full border-2 border-dashed border-black border-r-cyan-900 animate-spin -mt-20'></div>
+    
     </Html>
+
   )
 }
 

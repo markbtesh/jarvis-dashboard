@@ -10,17 +10,7 @@ import Segment  from './Segments'
 import ProgressBar from './ProgressBar';
 import SegmentedProgressBar from './SegmentedProgressBar';
 import RadialGauge from './RadialGauge';
-
-
-const initialMissions = [
-  { id: 1, title: 'Operation Starfall', description: 'Infiltrate the hidden lab.', coords: { x: 25, y: 35 }, focus: false },
-  { id: 2, title: 'Echo Base Recon', description: 'Gather intel on enemy movement.', coords: { x: 72, y: 25 }, focus: false },
-  { id: 3, title: 'Ghost Protocol', description: 'Neutralize target.', coords: { x: 75, y: 70 }, focus: false },
-  { id: 4, title: 'Phantom Strike', description: 'Disrupt enemy communication systems.', coords: { x: 65, y: 15 }, focus: false },
-  { id: 5, title: 'Stealth Sabotage', description: 'Destroy key infrastructure undetected.', coords: { x: 16, y: 28 }, focus: false },
-  { id: 6, title: 'Crimson Dawn', description: 'Retrieve classified documents from enemy headquarters.', coords: { x: 35, y: 60 }, focus: false },
-];
-
+import { initialMissions } from '@/constants';
 
 const Radar = () => {
   const radarSweep = useRef(null);
@@ -301,14 +291,14 @@ return (
         <div className="bg-gray-800 border border-cyan-400 w-10 h-40 rounded-lg shadow-glow border-r-0 border-l-0 pl-[1px] scale-125">
         <Segment value={60} length={10}/>
 
-        <div className="w-6 h-6 bg-[#A33E4E] border border-[#CC5565] rounded-full flex items-center justify-center mt-2 ml-[0.4rem]">
-  <motion.div
-    className="w-2 h-2 rounded-full bg-[#CC5565] animate-pulse"
-    initial={{ scale: 1 }}
-    animate={{ scale: 1.2 }}
-    transition={{ repeat: Infinity, duration: 1.5 }}
-  />
-</div>
+        <div className="w-6 h-6 bg-[#a06d25] border border-[#bc7f28] rounded-full flex items-center justify-center mt-2 ml-[0.4rem]">
+         <motion.div
+            className="w-2 h-2 rounded-full bg-[#bc7f28] animate-pulse"
+            initial={{ scale: 1 }}
+            animate={{ scale: 1.2 }}
+            transition={{ repeat: Infinity, duration: 1.5 }}
+         />
+        </div>
         </div>
         <span className="transform rotate-90 text-2xl text-gray-400 font-semibold h-5 w-3 mt-12">Flow</span>
         </div>

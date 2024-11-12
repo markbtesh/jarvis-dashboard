@@ -7,7 +7,7 @@ import Loader from '../Loader';
 
 const ReactorModel = () => {
   const modelRef = useRef();
-  const { scene } = useGLTF('./reactor.glb'); // Load the GLTF model using useGLTF
+  const { scene } = useGLTF('https://d1rz0mlg9ltl84.cloudfront.net/reactor.glb'); // Load the GLTF model using useGLTF
 
   // Floating animation effect
   useFrame(() => {

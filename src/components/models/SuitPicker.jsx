@@ -2,124 +2,53 @@
 
 import React, { useState, useEffect, useRef, Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Preload } from '@react-three/drei';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { OrbitControls, Preload, useGLTF } from '@react-three/drei';
 import { useDrag } from '@use-gesture/react';
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
-
-
+import { DRACOLoader } from 'three-stdlib'; 
+import { models } from '@/constants';
+import Loader from '../Loader';
 import Tilt from 'react-parallax-tilt';
 import { motion } from 'framer-motion';
 import ProgressBar from '../ProgressBar';
 import Typewriter from '../useTypingEffect';
 import TechCircle from '../TechCircle';
 
-const models = [
-  { 
-    path: 'https://d1rz0mlg9ltl84.cloudfront.net/ironman1/scene.gltf', 
-    scale: 1.7,
-    stats: {
-      Armor: 90,
-      Power: 85,
-      Accuracy: 75,
-      Speed: 80,
-      Durability: 88,
-      Agility: 70,
-    },
-    name: 'Iron Man MK 7'
-  },
-  { 
-    path: 'https://d1rz0mlg9ltl84.cloudfront.net/ironman2.glb', 
-    scale: 0.33,
-    stats: {
-      Armor: 80,
-      Power: 92,
-      Accuracy: 78,
-      Speed: 85,
-      Durability: 82,
-      Agility: 50,
-    },
-    name: 'Iron Man MK 1'
-  },
-  {
-    path: 'https://d1rz0mlg9ltl84.cloudfront.net/ironman_silver.glb',
-    scale: 2.6,
-    stats: {
-      Armor: 88,
-      Power: 95,
-      Accuracy: 80,
-      Speed: 90,
-      Durability: 84,
-      Agility: 82,
-    },
-    name: 'Iron Man Silver Suit'
-},
-
-  { 
-    path: 'https://d1rz0mlg9ltl84.cloudfront.net/ironman4.glb', 
-    scale: 1.2,
-    stats: {
-      Armor: 95,
-      Power: 88,
-      Accuracy: 80,
-      Speed: 78,
-      Durability: 84,
-      Agility: 92,
-    },
-    name: 'Iron Man Midnight'
-  },
-];
-
-const configureLoader = () => {
-  const loader = new GLTFLoader();
-  const dracoLoader = new DRACOLoader();
-  // Set the Draco decoder path to Google CDN for public access
-  dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
-  loader.setDRACOLoader(dracoLoader);
-  return loader;
-};
-
 const SuitModel = ({ modelPath, scale, position, onClick, opacity = 1 }) => {
   const modelRef = useRef();
-  const [gltf, setGltf] = useState();
+  const { scene } = useGLTF(modelPath, true, (loader) => {
+    // Configure the DRACOLoader
+    const dracoLoader = new DRACOLoader();
+    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/'); // Set the path to the Draco decoder
+    loader.setDRACOLoader(dracoLoader);
+  });
 
-  useEffect(() => {
-    const loader = configureLoader();
-    loader.load(modelPath, setGltf);
-  }, [modelPath]);
-
-  useEffect(() => {
-    if (modelRef.current) {
-      modelRef.current.position.set(...position);
+ // Apply the initial position and other properties
+ if (scene) {
+  scene.position.set(...position);
+  scene.traverse((child) => {
+    if (child.isMesh) {
+      child.material.opacity = opacity;
+      child.material.transparent = opacity < 1;
     }
-  }, [position]);
+  });
+}
 
   const onHoverStart = () => (document.body.style.cursor = 'pointer');
 
   // Function to revert cursor to default
   const onHoverEnd = () => (document.body.style.cursor = 'default');
   return (
-    gltf && (
-      <primitive
-        object={gltf.scene}
-        ref={modelRef}
-        scale={scale}
-        position={position}
-        onPointerOver={onHoverStart} 
-        onPointerOut={onHoverEnd}
-        onClick={onClick}
-        onUpdate={(self) => (self.traverse((child) => {
-          if (child.isMesh) {
-            child.material.opacity = opacity;
-            child.material.transparent = opacity < 1;
-          }
-        }))} 
-      />
-    )
+    <primitive
+      object={scene}
+      ref={modelRef}
+      scale={scale}
+      position={position}
+      onPointerOver={onHoverStart}
+      onPointerOut={onHoverEnd}
+      onClick={onClick}
+  />
   );
 };
-
-
 
 
 const SuitPicker = ( ) => {
@@ -243,9 +172,10 @@ const SuitPicker = ( ) => {
         <directionalLight position={[0, -5, -5]} intensity={0.5} color="#00ffff" />
         <hemisphereLight skyColor={"#ffffff"} groundColor={"#444444"} intensity={0.6} />
         <OrbitControls enableZoom={false} enablePan={false} enableRotate={false} />
-
+      
         {models.map((model, index) => (
-          
+            <Suspense fallback={<Loader/>}>
+            
           <SuitModel
             key={index}
             modelPath={model.path}
@@ -254,7 +184,10 @@ const SuitPicker = ( ) => {
             opacity={index === activeIndex ? 1 : 0.2} 
             onClick={nextSuit} 
           />
+      
+             </Suspense>
         ))}
+     
         <Preload all />
       </Canvas></motion.div>
       
@@ -338,11 +271,6 @@ const SuitPicker = ( ) => {
       </motion.div>
     </div>
   );
-};
-
-const Model = ({ path, scale }) => {
-  const gltf = useLoader(GLTFLoader, path);
-  return <primitive object={gltf.scene} scale={scale} />;
 };
 
 

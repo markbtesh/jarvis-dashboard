@@ -8,6 +8,7 @@ import SuitsLayout from '../components/SuitsLayout';
 import MissionsLayout from '@/components/MissionsLayout';
 import SystemStatusLayout from '@/components/SystemStatusLayout';
 import ArcReactorLayout from '@/components/ArcReactorLayout';
+import { useGLTF } from '@react-three/drei';
 
 export default function Home() {
   const [layout, setLayout] = useState('dashboard'); // Manage the layout state here
@@ -89,3 +90,10 @@ export default function Home() {
     </div>
   );
 }
+
+
+  
+useGLTF.preload('https://d1rz0mlg9ltl84.cloudfront.net/ironman1/scene.gltf');
+useGLTF.preload('https://d1rz0mlg9ltl84.cloudfront.net/ironman2.glb');
+useGLTF.preload('https://d1rz0mlg9ltl84.cloudfront.net/ironman_silver.glb');
+useGLTF.preload('https://d1rz0mlg9ltl84.cloudfront.net/ironman4.glb');

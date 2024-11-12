@@ -8,20 +8,29 @@ import ArcReactorSmall from './models/ArcReactorSmall';
 import { motion } from 'framer-motion';
 import CentralCore from './CentralCore';
 import ReactorScene from './models/ArcReactor';
+import { commands } from '@/constants';
 
 // Main Arc Reactor Interface Component
 const ArcReactorUI = ({ onSwitchLayout, messageIndex, setMessageIndex }) => {
     return (
         <div className="min-h-screen text-cyan-500 grid grid-cols-12 gap-4 p-8">
+          
             <LeftPanel messageIndex={messageIndex} setMessageIndex={setMessageIndex}/>
             
-            <div className='col-span-8 relative flex justify-center items-center'>
-            <div className='absolute top-0 left-4'>
+            <motion.div initial={{ opacity: 0 }}
+      animate={{  opacity: 1}}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.2 }}
+      className='col-span-8 relative flex justify-center items-center'>
+            <div className='absolute top-0 left-4 z-10'>
             <h4 className="glow border border-white text-white bg-cyan-800 inline-block p-2 mr-4 text-2xl">Arc Reactor</h4>
             <CommandPrompt />
             </div>
+          
             <ReactorScene />
-            </div>
+         
+            </motion.div>
+            
             <RightPanel />
             
     
@@ -60,91 +69,7 @@ const CommandPrompt = () => {
   const processCommand = (cmd) => {
     let newOutput = [...output, `C:\\Users\\CORE> ${cmd}`];
 
-    switch (cmd.toLowerCase()) {
-        case 'status':
-          newOutput.push('All systems are online and functioning at full capacity.');
-          newOutput.push('Power levels: 89% - Reactor stable.');
-          break;
-        case 'diagnostics':
-          newOutput.push('Running full system diagnostics...');
-          newOutput.push('Diagnostics complete: No issues detected.');
-          newOutput.push('Security protocols active.');
-          break;
-       
-        case 'weather':
-          newOutput.push('Retrieving latest weather updates...');
-          newOutput.push('Current weather in New York: Sunny, 25°C.');
-          break;
-        case 'time':
-          newOutput.push(`Current time: ${new Date().toLocaleTimeString()}`);
-          break;
-        case 'hello':
-          newOutput.push('Hello, Sir. How may I assist you today?');
-          break;
-        case 'shutdown':
-          newOutput.push('Initiating shutdown sequence...');
-          newOutput.push('Goodbye, Sir.');
-          break;
-        case 'reboot':
-            newOutput = ['Rebooting systems...',
-                         'All systems back online.'
-            ]
-          newOutput.push();
-          newOutput.push();
-          break;
-           case 'dir':
-        newOutput.push(' Directory of C:\\Users\\User');
-        newOutput.push('01/01/2024  12:00 PM    <DIR>          Documents');
-        newOutput.push('01/01/2024  12:00 PM    <DIR>          Downloads');
-        newOutput.push('01/01/2024  12:00 PM    <DIR>          Pictures');
-        newOutput.push('01/01/2024  12:00 PM    <DIR>          Desktop');
-        newOutput.push('               0 File(s)              0 bytes');
-        break;
-      case 'cd':
-        newOutput.push('The system cannot find the path specified.');
-        break;
-           case 'ipconfig':
-        newOutput.push('Windows IP Configuration');
-        newOutput.push('   Ethernet adapter Ethernet:');
-        newOutput.push('      Connection-specific DNS Suffix  . : example.local');
-        newOutput.push('      IPv4 Address. . . . . . . . . . . : 192.168.1.101');
-        newOutput.push('      Subnet Mask . . . . . . . . . . . : 255.255.255.0');
-        newOutput.push('      Default Gateway . . . . . . . . . : 192.168.1.1');
-        break;
-      case 'ping':
-        newOutput.push('Pinging example.com [93.184.216.34] with 32 bytes of data:');
-        newOutput.push('Reply from 93.184.216.34: bytes=32 time=20ms TTL=54');
-        newOutput.push('Reply from 93.184.216.34: bytes=32 time=18ms TTL=54');
-        newOutput.push('Reply from 93.184.216.34: bytes=32 time=19ms TTL=54');
-        newOutput.push('Reply from 93.184.216.34: bytes=32 time=21ms TTL=54');
-        newOutput.push('Ping statistics for 93.184.216.34:');
-        newOutput.push('    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),');
-        break;
-      case 'systeminfo':
-        newOutput.push('Host Name:                 USER-PC');
-        newOutput.push('OS Name:                   Microsoft Windows 10 Pro');
-        newOutput.push('OS Version:                10.0.19042 N/A Build 19042');
-        newOutput.push('System Manufacturer:       Example Manufacturer');
-        newOutput.push('System Model:              Example Model');
-        newOutput.push('Processor(s):              1 Processor(s) Installed.');
-        newOutput.push('                           [01]: Intel64 Family 6 Model 158 Stepping 10');
-        newOutput.push('Total Physical Memory:     16,384 MB');
-        break;
-      case 'tasklist':
-        newOutput.push('Image Name                     PID Session Name        Session#    Mem Usage');
-        newOutput.push('========================= ======== ================ =========== ===========');
-        newOutput.push('chrome.exe                    1234 Console                    1     200,000 K');
-        newOutput.push('explorer.exe                  5678 Console                    1      40,000 K');
-        newOutput.push('cmd.exe                       9101 Console                    1       5,000 K');
-        break;
-          case 'help':
-            newOutput.push('Available commands: help, reboot, hello, status, diagnostics, weather, time');
-            break;
-        default:
-          newOutput.push(`'${cmd}' is not recognized as a valid command.`);
-      }
-
-    setOutput(newOutput);
+    setOutput(commands(cmd, newOutput));
   };
 
   return (
@@ -200,7 +125,11 @@ const CommandPrompt = () => {
 // Left Panel with Temperature and Additional Data
 const LeftPanel = ({messageIndex, setMessageIndex}) => {
     return (
-        <div className="col-span-2 flex flex-col gap-8 space-y-4">
+      <motion.div initial={{ opacity: 0 }}
+      animate={{  opacity: 1}}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+        className="col-span-2 flex flex-col gap-8 space-y-4">
 
 <motion.div initial={{ translateX: -450, opacity: 0, scale: 0.3 }}
       animate={{ translateX: 0, translateY: -100, opacity: 1, scale: 0.5 }}
@@ -264,7 +193,7 @@ const LeftPanel = ({messageIndex, setMessageIndex}) => {
             </div>
             
            
-        </div>
+        </motion.div>
     );
 };
 
@@ -273,17 +202,25 @@ const LeftPanel = ({messageIndex, setMessageIndex}) => {
 // Right Panel with System Checks
 const RightPanel = () => {
     return (
-        <div className="col-span-2 flex flex-col gap-4 -ml-20">
+      <motion.div initial={{ opacity: 0 }}
+      animate={{  opacity: 1}}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+       className="col-span-2 flex flex-col gap-4 -ml-20">
            <CodeEditorTabs />
            <MockServerLog />
-        </div>
+        </motion.div>
     );
 };
 
 // Bottom Stats with Core Temperature and Other Information
 const BottomStats = () => {
     return (
-        <div className="col-span-12 grid-cols-2 grid justify-around p-4  mt-4 rounded-lg absolute bottom-20 w-full">
+      <motion.div initial={{ opacity: 0 }}
+      animate={{  opacity: 1}}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+       className="col-span-12 grid-cols-2 grid justify-around p-4  mt-4 rounded-lg absolute bottom-20 w-full">
             <div className='border-b border-white self-end flex'>
                 <h4 className="glow text-white pr-1">Core Temp:</h4>
                 <h2 className='text-3xl'>83.29°C</h2>
@@ -335,7 +272,7 @@ const BottomStats = () => {
                 <WaveformComponent style={{ width: '30vw', height: 'auto', marginBottom: '-40px', marginTop: '-35px'}} fov='20'/>
               
             </div>
-        </div>
+        </motion.div>
     );
 };
 

@@ -104,6 +104,8 @@ const CentralCore = ({ page, greeted, setGreeted, messageIndex, setMessageIndex 
       if (jarvisVoice) {
         utterance.voice = jarvisVoice;
       }
+      utterance.pitch = 0.6;
+      utterance.rate = 1.05;
       speechSynthesis.speak(utterance);
     };
 
