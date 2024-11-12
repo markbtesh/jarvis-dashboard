@@ -174,7 +174,7 @@ const SuitPicker = ( ) => {
         <OrbitControls enableZoom={false} enablePan={false} enableRotate={false} />
       
         {models.map((model, index) => (
-            <Suspense fallback={<Loader/>}>
+            <Suspense fallback={<Loader style={'ml-52'}/>}>
             
           <SuitModel
             key={index}

@@ -15,7 +15,7 @@ const models = [
       name: 'Iron Man MK 7'
     },
     { 
-        path: 'https://d1rz0mlg9ltl84.cloudfront.net/ironman2.glb', 
+        path: 'https://d1rz0mlg9ltl84.cloudfront.net/ironman_big.glb', 
         scale: 0.33,
         stats: {
           Armor: 80,

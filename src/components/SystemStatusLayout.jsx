@@ -535,7 +535,7 @@ const SystemStatusLayout = ({ onSwitchLayout, messageIndex, setMessageIndex }) =
 
         </motion.div>
 
-        
+         {/* CORE */}
     <motion.div initial={{ translateX: 450, opacity: 0, scale: 0.5 }}
       animate={{ translateX: 0, opacity: 1, scale: 0.85 }}
       exit={{ translateX:  450, opacity: 0, scale: 0.5 }}
