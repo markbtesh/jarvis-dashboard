@@ -210,7 +210,7 @@ return (
           <ArrowPanel />
 
 
-    <div className="space-y-4 space-x-5 pt-2 flex justify-between bg-gradient-to-br from-black via-gray-900 to-black  rounded-lg shadow-inner border-2 border-cyan-500  w-[22%]  px-6">
+    <div className="space-y-4 space-x-5 pt-2 flex justify-between bg-gradient-to-br from-black via-gray-900 to-black  rounded-lg  border-0 shadow-lg shadow-cyan-500/50  border-cyan-500  w-[22%]  px-6">
  
         <RadialGauge value='55' label='level'/>
         <ProgressBar label="Energy Flow" staticValue={70} />
@@ -232,16 +232,16 @@ return (
           <h2 className='text-white text-center mb-4'>Core Uplink</h2>
           <div className='flex justify-center'>
          {/* Rotating Circular Component */}
-         <div className="relative w-20 h-20 flex items-center justify-center rounded-full bg-gray-800 border-4 border-cyan-500">
+         <div className="relative w-16 h-16 flex items-center justify-center rounded-full bg-gray-800 border-2 border-cyan-500">
           <motion.div
-            className="absolute w-16 h-16 border-t-2 border-cyan-400 rounded-full animate-spin bg-gray-900"
+            className="absolute w-12 h-12 border-t-2 border-cyan-400 rounded-full animate-spin bg-gray-900"
             style={{ animationDuration: '10s' }}
           />
           <motion.div
-            className="absolute w-12 h-12 border-b-2 border-cyan-300 rounded-full animate-spin-reverse"
+            className="absolute w-8 h-8 border-b-2 border-cyan-300 rounded-full animate-spin-reverse"
             style={{ animationDuration: '12s' }}
           />
-           <div className="w-12 h-12 bg-cyan-900 border border-cyan-500 rounded-full flex items-center justify-center">
+           <div className="w-8 h-8 bg-cyan-900 border border-cyan-500 rounded-full flex items-center justify-center">
           <motion.div
             className="w-6 h-6 rounded-full bg-cyan-600 animate-pulse"
             initial={{ scale: 1 }}
@@ -253,14 +253,14 @@ return (
        
         </div>
          {/* Mini Radar Animation */}
-         <div className="relative flex justify-center items-center w-16 h-16 border border-cyan-600 rounded-full ">
+         <div className="relative flex justify-center items-center w-12 h-12 border border-cyan-600 rounded-full ">
           <motion.div
             className="absolute w-12 h-12 border-t border-cyan-500 rounded-full animate-spin-slow"
             style={{ animationDuration: '6s' }}
           />
-           <div className="w-12 h-12 bg-cyan-900 border border-cyan-500 rounded-full flex items-center justify-center">
+           <div className="w-8 h-8 bg-cyan-900 border border-cyan-500 rounded-full flex items-center justify-center">
           <motion.div
-            className="w-6 h-6 rounded-full bg-cyan-600 animate-pulse"
+            className="w-4 h-4 rounded-full bg-cyan-600 animate-pulse"
             initial={{ scale: 1 }}
             animate={{ scale: 1.2 }}
             transition={{ repeat: Infinity, duration: 1.5 }}
