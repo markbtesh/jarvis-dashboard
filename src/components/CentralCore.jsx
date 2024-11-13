@@ -137,18 +137,18 @@ const CentralCore = ({ page, greeted, setGreeted, messageIndex, setMessageIndex 
     const userMessage = { role: 'user', content: input };
     setMessages((prevMessages) => [...prevMessages, userMessage]);
 
-    const botResponse = await sendMessageToAI(input);
+    const botResponse = await sendMessageToAI(input, page);
     setMessages((prevMessages) => [...prevMessages, { role: 'core', content: botResponse }]);
 
     setInput('');
     speak(botResponse);
   };
 
-  const sendMessageToAI = async (message) => {
+  const sendMessageToAI = async (message, page) => {
     const response = await fetch('/api/aiChat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message }),
+      body: JSON.stringify({ message, page }),
     });
     const data = await response.json();
     return data.response;
