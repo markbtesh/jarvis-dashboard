@@ -96,4 +96,4 @@ export default function Home() {
 useGLTF.preload('https://d1rz0mlg9ltl84.cloudfront.net/ironman1/scene.gltf');
 useGLTF.preload('https://d1rz0mlg9ltl84.cloudfront.net/ironman_big.glb');
 useGLTF.preload('https://d1rz0mlg9ltl84.cloudfront.net/ironman_silver.glb');
-useGLTF.preload('https://d1rz0mlg9ltl84.cloudfront.net/ironman4.glb');
+useGLTF.preload('https://d1rz0mlg9ltl84.cloudfront.net/ironman_midnight.glb');

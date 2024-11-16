@@ -42,7 +42,7 @@ const models = [
   },
   
     { 
-      path: 'https://d1rz0mlg9ltl84.cloudfront.net/ironman4.glb', 
+      path: 'https://d1rz0mlg9ltl84.cloudfront.net/ironman_midnight.glb', 
       scale: 1.2,
       stats: {
         Armor: 95,
